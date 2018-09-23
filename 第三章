@@ -44,7 +44,48 @@
 		然后就可以当作仓库访问了
 		
 3-9 实践（python）
+	①创建Image(dockerFile)
+		FROM python 2.7
+		LABEL maintainer="Peng Xiao<xxx@xxx.com>"
+		RUN pip instal flask
+		COPY app.py /app/
+		WORKDIR /app
+		EXPOSE 5000
+		CMD ["python","app.py"]
+	②创建app.py
+		from flask import FLASK
+		app = Flask(__name__)
+		@app.route('/')
+		def hello():
+			return "hello docker"
+		if __name__ == "__main__":
+			app.run
+	③创建镜像
+		docker build -t user/name
+	
+	④如果有报错 可以通过 docker run -it cid /bin/bash 来调试
+	
+	⑤使用镜像
+	
+	⑥总结
+		1.环境
+		2.代码
+		3.运行
+
+3-10 容器的操作
+	① docker exec 
+		docker exec -it cid /bin/bash
+		docker exec -it cid python
+	② docker ps
+	③ docker stop
+	④ docker rm $(docker ps -aq)
+	⑤ docker inspect cid
+	⑥ docker logs cid
+3-11 
 		
+	
+		
+	
 		
 		
 		
