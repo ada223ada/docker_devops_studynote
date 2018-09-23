@@ -1,0 +1,52 @@
+3-7 run cmd entrypoint
+	RUN 执行命令并创建新的Image Layer
+	CMD 执行容器启动后默认执行的命令和参数
+	ENTRYPOINT 设置容器启动时运行的命令
+	
+	①shell格式
+		RUN apt-get install -y vim
+		CMD echo "hello docker"
+		ENTRYPOINT echo "hello docker"
+	②Exec格式
+		RUN ["apt-get","install","y","vim"]
+		CMD ["/bin/echo" ,"hello docker"]
+		ENTRYPOINT ["/bin/echo","hello docker"]
+	
+	eg.
+		FROM centos
+		ENV name Docker
+		ENTRYPOINT enco "hello $name"
+		
+		FROM centos
+		ENV name Docker
+		
+		ENTRYPOINT ["/bin/echo","hello $name"]
+		通过shell运行，才可打印出hello Docker
+		ENTRYPOINT ["/bin/bash","-c","echo hello $name"]
+	
+	cmd是执行默认的命令，如果有entrypoint，则忽略。如果多个cmd，则只执行最后一个
+	entrypoint 容器以应用程序或服务的形式运行，不会被忽略。最佳时间是调用执行一个shell脚本
+
+3-8 Image发布
+	docker.hub
+		①docker login 登陆
+		②docker push user/name:tag 发布
+	或者通过github+dockerhub来关联dockerfile
+	或者内部私有dockerhub
+		①服务端，安装docker registry镜像仓库
+			docker run -d -p 5000:5000 --restart always --name registry r^Cistry:2
+		②客户端,创建配置文件 /etc/docker/doemon.json
+			{"insecure-registries":["*.*.*.*:5000"]}
+		③客户端,修改 /lib/systemd/system/docker.service的环境变量
+			
+		④重启docker服务
+			docker restart
+		然后就可以当作仓库访问了
+		
+3-9 实践（python）
+		
+		
+		
+		
+		
+	
